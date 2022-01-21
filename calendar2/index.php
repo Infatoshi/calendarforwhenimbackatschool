@@ -27,7 +27,7 @@ $defaultYear = 2022;
 $defaultMonth = 1;
 $d=cal_days_in_month(CAL_GREGORIAN,$defaultMonth,$defaultYear);
 $daysInCurrentMonth = date('t');
-echo $daysInCurrentMonth;
+// echo $daysInCurrentMonth;
 // echo "There was $d days in jan 2022";
 
 $rowLength = 7;
@@ -187,10 +187,17 @@ for ($n = 0; $n < $colLength; $n++) {
                     $arrowLeft = '<--';
                     $arrowRight = '-->';
                     
+                    if ($currentDate <= $daysInCurrentMonth) {
+                        array_push($subDivNumbers, 'day' . $currentDate);
+                        
+                        
+                        
+                            // echo $subDivNumbers[$currentDate - 1];
+                    }
 
                     
-                    if(isset($_POST[$subDivNumbers[$currentDate]])){
-
+                    if (isset($_POST['forward' . $subDivNumbers[$currentDate - 1]])){
+                        echo $subDivNumbers[$currentDate];
                         echo $arrowRight;
                         $myfile = fopen("backend.txt", "a") or die("Unable to open file!");
                         $nLine = "\n";
@@ -211,7 +218,7 @@ for ($n = 0; $n < $colLength; $n++) {
 
             <form method="POST">
                 <input type='submit' name='backward' value='Backward'>
-                <input type='submit' name='<?php $subDivNumbers[$currentDate]; ?>' value='Forward'>
+                <input type='submit' name='<?php"forward" . $subDivNumbers[$currentDate - 1]; ?>' value='Forward'>
             </form>
 
         </div>
@@ -226,7 +233,7 @@ for ($n = 0; $n < $colLength; $n++) {
 
         <?php
             if ($currentDate <= $daysInCurrentMonth) {
-                array_push($subDivNumbers, 'forward' . $currentDate);
+                
                 $currentDate++;
                 
                 
